@@ -8,7 +8,7 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 import { error } from "console";
-import router from "router";
+import router from "./router";
 const app:Express=express();
 
 app.use(cors({
@@ -32,4 +32,4 @@ mongoose.Promise=Promise;
 mongoose.connect(db_uri).then(()=>console.log("Database Connect!"));
 mongoose.connection.on('error', (error:Error)=> console.log(error));
 
-app.use('/', router())
+app.use('/api', router());
