@@ -13,6 +13,8 @@ export const login = async (req:Request, res:Response)=>{
             return res.status(400).json({message: "User not found"});
         }
         const expectedHash = authentication(user.authentication.salt, password);
+        //console.log('Stored password hash:', user.authentication.password);
+        //console.log('Generated password hash:', expectedHash);
 
         if(user.authentication.password !== expectedHash){
             return res.status(400).json({message: "Invalid password"});
@@ -47,7 +49,7 @@ export const register = async (req: Request,res: Response) :Promise<Response> =>
             username,
             authentication: {
                 salt,
-                password: authentication(password, salt),
+                password: authentication(salt, password),
             },
         });
         return res.status(200).json(user);
